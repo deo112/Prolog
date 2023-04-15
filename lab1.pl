@@ -41,6 +41,19 @@ pracownik(piotr, kawa, firma(mno), 14).
 pracownik(marek, czubak, firma(mno), 5).
 pracownik(marek, lis, firma(mno), 4).
 
+%podpunkt 3
+
+pracownik_abc(X,Y) :- pracownik(X,Y,firma(abc),_).
+pracInne(X,Y) :- pracownik(X,Y,Z,_), Z \= firma(abc).
+pracKobieta(X,Y) :- pracownik(X,Y,_,_), kobieta(X).
+dlugoletniPrac(X,Y,Z) :- pracownik(X,Y,_,Z), Z >= 10.
+premia(X,Y,B) :- pracownik(X,Y,_,Z), B =< 150*Z.
+%jakbyśmy sprawdzali równą wartość to nie używamy '=' tylko 'is'
+%warunek że premia jest tylko jeśli staż pracy jest dłuższy niż 3 lata
+premia2(X,Y,B) :- pracownik(X,Y,_,Z), Z > 3 -> B is 150*Z; B is 0.
+%Bez przypadków 'if' weźmie nam wszystkie wiersze a nie tylko 1
+premia3(X,Y,B) :- pracownik(X,Y,_,Z), Z =<3, B is 0.
+premia3(X,Y,B) :- pracownik(X,Y,_,Z), Z > 3, B is Z * 150.
 % Zadania:
 % =========
 
